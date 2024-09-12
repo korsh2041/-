@@ -2,9 +2,9 @@
 #include <stdlib.h>
 int main() {
     FILE *file;
-    const char *filename = "text.txt";
+    const char *text = "text.txt";
     char *str = "привет";
-    file = fopen(filename, "a");
+    file = fopen(text, "a");
     fputs(str, file);
     fclose(file);
     printf("Записано");
