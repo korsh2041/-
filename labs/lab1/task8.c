@@ -3,50 +3,41 @@
 #include <stdlib.h>
 #include <string.h>
 
-void prependToFile(const char *filename, const char *strToPrepend) {
-    // Временный файл для хранения содержимого
-    char tempFilename[] = "temp.txt";
-    FILE *file, *tempFile;
+void func(const char *vivodtext, const char *zapis) {
+    
+    char text[] = "для временного хранения.txt";
+    FILE *file1, *file2;
+    
     char buffer[256];
 
+    file1 = fopen(vivodtext, "r");
     
-    file = fopen(filename, "r");
+    file2 = fopen(text, "w");
     
+    fputs(zapis, file2);
 
-    // Открываем временный файл в режиме записи
-    tempFile = fopen(tempFilename, "w");
-    
-
-    // Записываем новую строку в начало временного файла
-    fputs(strToPrepend, tempFile);
-
-    // Копируем содержимое оригинального файла во временный файл
-    while (fgets(buffer, sizeof(buffer), file) != NULL) {
-        fputs(buffer, tempFile);
+    while (fgets(buffer, sizeof(buffer), file1) != NULL) {
+        fputs(buffer, file2);
     }
 
-    // Закрываем файлы
-    fclose(file);
-    fclose(tempFile);
+    
+    fclose(file1);
+    fclose(file2);
 
-    // Заменяем оригинальный файл временным
-    remove(filename);
-    rename(tempFilename, filename);
+    remove(vivodtext);
+    rename(text, vivodtext);
 }
 
 int main() {
-    const char *filename = "output.txt"; // Имя файла, куда будем добавлять строку
-    char strToPrepend[256]; // Массив для строки, которую будем добавлять
+    const char *vivodtext = "вывод.txt"; 
+    char zapis[256]; 
 
-    // Запрашиваем у пользователя строку для добавления
-    printf("Введите строку для добавления в начало файла: ");
-    fgets(strToPrepend, sizeof(strToPrepend), stdin);
+    printf("Введите строку: ");
+    fgets(zapis, sizeof(zapis), stdin);
+    
+    zapis[strcspn(zapis, "\n")] = '\0';
 
-    // Убираем символ новой строки, если он есть
-    strToPrepend[strcspn(strToPrepend, "\n")] = '\0';
-
-    // Вызываем функцию для добавления строки в начало файла
-    prependToFile(filename, strToPrepend);
+    func(vivodtext, zapis);
 
     printf("Строка записана");
     return 0;
