@@ -14,10 +14,7 @@ void randmas(float *arr, int size, float arg1, float arg2) {
 
 void zapisvfile(const char *filename, float *arr, int size) {
     FILE *file = fopen(filename, "w");
-    if (file == NULL) {
-        fprintf(stderr, "Ошибка открытия файла для записи.\n");
-        return;
-    }
+    
     for (int i = 0; i < size; i++) {
         fprintf(file, "%f\n", arr[i]);
     }
