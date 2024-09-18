@@ -5,14 +5,14 @@
 
 void func(const char *vivodtext, const char *zapis) {
     
-    char text[] = "для временного хранения.txt";
+    char text1[] = "для временного хранения.txt";
     FILE *file1, *file2;
     
     char buffer[256];
 
     file1 = fopen(vivodtext, "r");
     
-    file2 = fopen(text, "w");
+    file2 = fopen(text1, "w");
     
     fputs(zapis, file2);
 
@@ -25,20 +25,45 @@ void func(const char *vivodtext, const char *zapis) {
     fclose(file2);
 
     remove(vivodtext);
-    rename(text, vivodtext);
+    rename(text1, vivodtext);
 }
 
 int main() {
-    const char *vivodtext = "вывод.txt"; 
+    const char *vivodtext = "вывод.txt";
+    char line[256];
     char zapis[256]; 
+    printf("Содержимое текстового файла:\n");
+    const char *text2 = "вывод.txt";
+    FILE *file3 = fopen(text2, "r");
+    if(file3)
+    {
+        while((fgets(line, 256, file3))!=NULL)
+        {
+            printf("%s", line);
+        }
+        
+        fclose(file3);
+    } 
+    
+    
 
-    printf("Введите строку: ");
+    printf("\nВведите строку: ");
     fgets(zapis, sizeof(zapis), stdin);
     
     zapis[strcspn(zapis, "\n")] = '\0';
 
     func(vivodtext, zapis);
 
-    printf("Строка записана");
+    printf("Итоговая запись в файле:\n");
+    FILE *file4 = fopen(text2,"r");
+    if(file4)
+    {
+        while((fgets(line, 256, file4))!=NULL)
+        {
+            printf("%s", line);
+        }
+        
+        fclose(file4);
+    }
     return 0;
 }
