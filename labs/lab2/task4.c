@@ -41,8 +41,6 @@ int main(int argc, char *argv[]) {
     
     zapisvfile("сортировка.txt", arr, size);
 
-    free(arr);
-
     printf("Отсортированный массив записан в файл\n");
 
     return 0;
