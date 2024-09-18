@@ -6,16 +6,16 @@ int sortirovka(const void *a, const void *b) {
     return (*(float *)a > *(float *)b) - (*(float *)a < *(float *)b);
 }
 
-void randmas(float *arr, int size, float arg1, float arg2) {
-    for (int i = 0; i < size; i++) {
+void randmas(float *arr, int n, float arg1, float arg2) {
+    for (int i = 0; i < n; i++) {
         arr[i] = arg1 + (float)rand() / RAND_MAX * (arg2 - arg1);
     }
 }
 
-void zapisvfile(const char *filename, float *arr, int size) {
-    FILE *file = fopen(filename, "w");
-    
-    for (int i = 0; i < size; i++) {
+void zapisvfile(const char *zapis, float *arr, int n) {
+    FILE *file = fopen(zapis, "w");
+
+    for (int i = 0; i < n; i++) {
         fprintf(file, "%f\n", arr[i]);
     }
     fclose(file);
@@ -30,16 +30,16 @@ int main(int argc, char *argv[]) {
     
     srand(time(NULL));
 
-    randmas(arr, size, arg1, arg2);
+    randmas(arr, n, arg1, arg2);
 
     printf("Случайный массив:\n");
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < n; i++) {
         printf("%f\n", arr[i]);
     }
 
     qsort(arr, size, sizeof(float), sortirovka);
     
-    zapisvfile("сортировка.txt", arr, size);
+    zapisvfile("сортировка.txt", arr, n);
 
     printf("Отсортированный массив записан в файл\n");
 
