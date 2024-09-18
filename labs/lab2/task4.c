@@ -8,7 +8,7 @@ int sortirovka(const void *a, const void *b) {
 
 void randmas(float *arr, int size, float arg1, float arg2) {
     for (int i = 0; i < size; i++) {
-        arr[i] = arg1 + (float)rand() / RAND_MAX * (arg2 - arg1); // Генерация числа в диапазоне (arg1, arg2)
+        arr[i] = arg1 + (float)rand() / RAND_MAX * (arg2 - arg1);
     }
 }
 
