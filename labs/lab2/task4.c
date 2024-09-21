@@ -22,11 +22,11 @@ void zapisvfile(const char *zapis, float *arr, int n) {
 }
 
 int main(int argc, char *argv[]) {
-    int size = atoi(argv[1]);
+    int n = atoi(argv[1]);
     float arg1 = atof(argv[2]);
     float arg2 = atof(argv[3]);
 
-    float *arr = (float *)malloc(size * sizeof(float));
+    float *arr = (float *)malloc(n * sizeof(float));
     
     srand(time(NULL));
 
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
         printf("%f\n", arr[i]);
     }
 
-    qsort(arr, size, sizeof(float), sortirovka);
+    qsort(arr, n, sizeof(float), sortirovka);
     
     zapisvfile("сортировка.txt", arr, n);
 
