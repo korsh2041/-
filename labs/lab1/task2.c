@@ -7,4 +7,4 @@ int main(void)
     printf("c = %f" , c);
     return 0;
 }
-или %d d -diget(цифра)
+//или %d d -diget(цифра)
