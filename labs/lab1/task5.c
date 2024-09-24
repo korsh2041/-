@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define N 80
+#define N 256
  
 int main() { 
     FILE *file;
