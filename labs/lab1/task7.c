@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define N 1024
 int main() {
-    char line[256];
+    char line[N];
 
     const char *text = "text.txt";
     char *str = "привет";
@@ -9,7 +10,7 @@ int main() {
     FILE *file1 = fopen(text, "r");
     if(file1)
     {
-        while((fgets(line, 256, file1))!=NULL)
+        while((fgets(line, sizeof(line), file1))!=NULL)
         {
             printf("%s", line);
         }
@@ -25,7 +26,7 @@ int main() {
     FILE *file3 = fopen(text,"r");
     if(file3)
     {
-        while((fgets(line, 256, file3))!=NULL)
+        while((fgets(line, sizeof(line), file3))!=NULL)
         {
             printf("%s", line);
         }
