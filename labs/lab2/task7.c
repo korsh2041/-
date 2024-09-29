@@ -91,3 +91,95 @@ int main() {
     fclose(file);
     return 0;
 }
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define N 256
+
+typedef struct {
+    int items[N];
+    int top;
+} Stack;
+
+void inStack(Stack* s) {
+    s->top = -1;
+}
+
+int full(Stack* s) {
+    return s->top == N - 1;
+}
+
+int pust(Stack* s) {
+    return s->top == -1;
+}
+
+void stackfull(Stack* s, int sch) {
+    if (!full(s)) {
+        s->items[++(s->top)] = sch;
+    } else {
+        printf("Стек переполнен\n");
+    }
+}
+
+int stackpust(Stack* s) {
+    if (!pust(s)) {
+        return s->items[(s->top)--];
+    } else {
+        printf("Стек пуст\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+int preobraz(char* str) {
+    Stack stack;
+    inStack(&stack);
+    char *text = strtok(atoi(str), " ");
+
+    while (text != NULL) {
+        if (isdigit(text[0])) {
+            stackfull(&stack, atoi(text));
+        } else {
+            int prav = stackpust(&stack);
+            int levo = stackpust(&stack);
+            switch (text[0]) {
+                case '+':
+                    stackfull(&stack, levo + prav);
+                    break;
+                case '-':
+                    stackfull(&stack, levo - prav);
+                    break;
+                case '*':
+                    stackfull(&stack, levo * prav);
+                    break;
+                case '/':
+                    if (prav == 0) {
+                        printf("Ошибка: Деление на ноль\n");
+                        exit(EXIT_FAILURE);
+                    }
+                    stackfull(&stack, levo / prav);
+                    break;
+                default:
+                    printf("Недопустимый оператор: %s\n", text);
+                    exit(EXIT_FAILURE);
+            }
+        }
+        text =(int *) strtok(NULL, " ");
+    }
+    return stackpust(&stack);
+}
+
+int main() {
+    FILE* file = fopen("input.txt", "r");
+
+    char str[N];
+    while (fgets(str, sizeof(str), file)) {
+        printf("Результат выражения: %d\n", preobraz(str));
+    }
+
+    fclose(file);
+    return 0;
+}
