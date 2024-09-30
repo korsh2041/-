@@ -29,7 +29,6 @@ bool push(stack* s, int sch) {
     return true;
 }
 
-// Извлечение значения из стека
 bool out(stack* s, int* sch) {
     if (pust(s)) {
         printf("Ошибка: стек пуст.\n");
